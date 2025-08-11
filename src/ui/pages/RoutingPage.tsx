@@ -36,7 +36,15 @@ export function RoutingPage(): JSX.Element {
 
   const [expanded, setExpanded] = React.useState<Record<string, boolean>>({})
   function toggleExpanded(id: string): void {
-    setExpanded(e => ({ ...e, [id]: !e[id] }))
+    setExpanded(prev => {
+      const isOpen = Boolean(prev[id])
+      if (isOpen) {
+        // Collapse all when clicking the already-open provider
+        return {}
+      }
+      // Open only this provider and collapse others
+      return { [id]: true }
+    })
   }
 
   const sections: Array<{ title: string; items: ProviderDef[] }> = [

@@ -9,7 +9,7 @@ interface NavigationProps {
 }
 
 const TAB_ITEMS: { key: Tab; label: string }[] = [
-  { key: 'convert', label: 'Convert' },
+  { key: 'convert', label: 'Swap' },
   { key: 'routing', label: 'Routing' },
   { key: 'activity', label: 'Activity' },
 ]
