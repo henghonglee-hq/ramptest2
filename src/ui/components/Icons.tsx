@@ -24,13 +24,13 @@ export function CurrencyIcon({ code, chain, size = 28 }: CurrencyIconProps): JSX
   const overlay = overlayNeeded ? <ChainBadge chain={chain!} size={Math.round(size * 0.45)} /> : null
 
   return (
-    <div style={{ position: 'relative', width: size, height: size }}>
+    <div style={{ position: 'relative', width: size, height: size, borderRadius: '50%', overflow: 'hidden', background: '#ffffff' }}>
       {cryptoSvg ? (
-        <img src={cryptoSvg} width={size} height={size} alt={`${code} icon`} />
+        <img src={cryptoSvg} width={size} height={size} alt={`${code} icon`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
       ) : (
         <svg width={size} height={size} viewBox="0 0 32 32" aria-label={code}>
           <circle cx="16" cy="16" r="16" fill={bg} />
-          <text x="16" y="20" textAnchor="middle" fontSize="14" fontWeight={700}> {label} </text>
+          <text x="16" y="20" textAnchor="middle" fontSize="16" fontWeight={700} fill={fg}> {label} </text>
         </svg>
       )}
       {overlay && (

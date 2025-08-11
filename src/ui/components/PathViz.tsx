@@ -17,7 +17,15 @@ export function PathViz({ steps }: { steps: PathStep[] }): JSX.Element | null {
         {steps.map((step, idx) => (
           <React.Fragment key={idx}>
             <_StepPill
-              title={step.kind === 'ramp' ? 'Ramp' : 'Swap'}
+              title={
+                step.kind === 'ramp'
+                  ? idx === 0
+                    ? 'On Ramp'
+                    : idx === steps.length - 1
+                      ? 'Off Ramp'
+                      : 'Ramp'
+                  : 'Swap'
+              }
               provider={step.providerName}
               fee={`${step.feePercent.toFixed(2)}% + ${step.fixedFeeAmount.toFixed(2)} ${step.fixedFeeCurrency}`}
             />

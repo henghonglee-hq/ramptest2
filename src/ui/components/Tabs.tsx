@@ -44,28 +44,26 @@ export function Tabs<T extends TabKey>({ tabs, value, onChange, ariaLabel }: Tab
   }
 
   return (
-    <div ref={containerRef} className="segmented" role="tablist" aria-label={ariaLabel ?? 'Tabs'}>
-      {tabs.map((t, idx) => {
-        const selected = t.key === value
-        return (
-          <button
-            key={t.key}
-            role="tab"
-            aria-selected={selected}
-            aria-controls={`panel-${String(t.key)}`}
-            tabIndex={selected ? 0 : -1}
-            onKeyDown={(e) => _onKeyDown(e, idx)}
-            onClick={() => onChange(t.key)}
-            style={{
-              background: selected ? '#ffffff' : undefined,
-              borderColor: selected ? 'var(--border)' : undefined,
-              color: 'var(--surface-text)'
-            }}
-          >
-            {t.label}
-          </button>
-        )
-      })}
+    <div ref={containerRef} className="tabs" role="tablist" aria-label={ariaLabel ?? 'Tabs'}>
+      <div className="tabs-track">
+        {tabs.map((t, idx) => {
+          const selected = t.key === value
+          return (
+            <button
+              key={t.key}
+              role="tab"
+              aria-selected={selected}
+              aria-controls={`panel-${String(t.key)}`}
+              tabIndex={selected ? 0 : -1}
+              onKeyDown={(e) => _onKeyDown(e, idx)}
+              onClick={() => onChange(t.key)}
+              className={`tab-item ${selected ? 'is-active' : ''}`}
+            >
+              <span className="tab-label">{t.label}</span>
+            </button>
+          )
+        })}
+      </div>
     </div>
   )
 }

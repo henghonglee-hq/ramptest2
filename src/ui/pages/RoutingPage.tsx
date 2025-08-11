@@ -226,7 +226,7 @@ function MultiPartyModel3({ providerName, onEnabled }: { providerName: string; o
     <div style={{ border: '1px solid #e2e8f0', borderRadius: 8, padding: 10 }}>
       <div style={{ fontWeight: 700, marginBottom: 6, display: 'flex', alignItems: 'center', gap: 6 }}>
         <span>Multi-Party Model 3</span>
-        <InfoTooltip text="Biz Account provisions a sub-account for the User under the master business account (server-side). No end-user dashboard credentials needed; you manage onboarding and payouts." />
+        <InfoTooltip text="Biz Account provisions a sub-account for the User under the master business account (server-side). No end-user dashboard credentials needed; Master Account / uRamp manages onboarding and payouts." />
       </div>
       <div style={{ display: 'grid', gap: 8 }}>
         <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} style={inputStyle} />

@@ -36,9 +36,33 @@ export function App({ isExtensionPopup = false, theme = 'dark' }: AppProps): JSX
         </header>
         <Navigation value={tab} onChange={setTab} />
         <main style={{ marginTop: isExtensionPopup ? 16 : 24 }}>
-          {tab === 'convert' && <div className="card"><ConvertPage /></div>}
-          {tab === 'activity' && <div className="card"><ActivityPage /></div>}
-          {tab === 'routing' && <div className="card"><RoutingPage /></div>}
+          <div
+            className="card"
+            style={{ display: tab === 'convert' ? 'block' : 'none' }}
+            aria-hidden={tab !== 'convert'}
+            id="panel-convert"
+            role="tabpanel"
+          >
+            <ConvertPage />
+          </div>
+          <div
+            className="card"
+            style={{ display: tab === 'activity' ? 'block' : 'none' }}
+            aria-hidden={tab !== 'activity'}
+            id="panel-activity"
+            role="tabpanel"
+          >
+            <ActivityPage />
+          </div>
+          <div
+            className="card"
+            style={{ display: tab === 'routing' ? 'block' : 'none' }}
+            aria-hidden={tab !== 'routing'}
+            id="panel-routing"
+            role="tabpanel"
+          >
+            <RoutingPage />
+          </div>
         </main>
       </div>
     </div>

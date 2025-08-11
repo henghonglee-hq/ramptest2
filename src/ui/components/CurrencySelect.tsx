@@ -17,6 +17,7 @@ export function CurrencySelect({ value, onChange, placeholder = 'Search currency
   const [open, setOpen] = React.useState(false)
   const [query, setQuery] = React.useState('')
   const inputRef = React.useRef<HTMLInputElement | null>(null)
+  const rootRef = React.useRef<HTMLDivElement | null>(null)
 
   type OptionEntry = { key: string; label: string; selection: CurrencySelection; iconCode: AnyCurrency; badge?: Chain; searchable: string }
 
@@ -53,8 +54,29 @@ export function CurrencySelect({ value, onChange, placeholder = 'Search currency
     if (open) setTimeout(() => inputRef.current?.focus(), 0)
   }, [open])
 
+  // Close when clicking outside the component
+  React.useEffect(() => {
+    function handlePointerDown(event: PointerEvent): void {
+      const root = rootRef.current
+      if (!root) return
+      if (!root.contains(event.target as Node)) {
+        setOpen(false)
+      }
+    }
+    window.addEventListener('pointerdown', handlePointerDown, { capture: true })
+    return () => window.removeEventListener('pointerdown', handlePointerDown, { capture: true } as any)
+  }, [])
+
+  // Close dropdown whenever the selected value changes externally
+  React.useEffect(() => {
+    if (open) {
+      setOpen(false)
+      setQuery('')
+    }
+  }, [value])
+
   return (
-    <div style={{ position: 'relative' }} onBlur={(e) => {
+    <div ref={rootRef} style={{ position: 'relative' }} onBlur={(e) => {
       // Close dropdown when focus leaves the container
       if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpen(false)
     }}>
@@ -63,7 +85,7 @@ export function CurrencySelect({ value, onChange, placeholder = 'Search currency
         onClick={() => setOpen(o => !o)}
         style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 8, border: '1px solid #cbd5e1', background: '#fff', width: '100%' }}
       >
-        <CurrencyIcon code={_displayIconCode(value)} chain={_displayIconChain(value)} />
+        <CurrencyIcon code={_displayIconCode(value)} chain={_displayIconChain(value)} size={32} />
         <span style={{ fontWeight: 600 }}>{_displayLabel(value)}</span>
       </button>
 
@@ -75,6 +97,19 @@ export function CurrencySelect({ value, onChange, placeholder = 'Search currency
               placeholder={placeholder}
               value={query}
               onChange={e => setQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Escape') {
+                  setOpen(false)
+                  ;(e.target as HTMLInputElement).blur()
+                } else if (e.key === 'Enter') {
+                  const first = options[0]
+                  if (first) {
+                    onChange(first.selection)
+                    setOpen(false)
+                    setQuery('')
+                  }
+                }
+              }}
               style={{ width: '100%', boxSizing: 'border-box', padding: '8px 10px', border: '1px solid #cbd5e1', borderRadius: 8 }}
             />
           </div>
@@ -83,10 +118,11 @@ export function CurrencySelect({ value, onChange, placeholder = 'Search currency
               <button
                 key={o.key}
                 type="button"
-                onClick={() => { onChange(o.selection); setOpen(false); setQuery('') }}
+                onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); onChange(o.selection); setOpen(false); setQuery('') }}
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); onChange(o.selection); setOpen(false); setQuery('') }}
                 style={{ display: 'flex', alignItems: 'center', gap: 10, padding: 10, width: '100%', background: 'white', border: 'none', borderTop: '1px solid #f1f5f9', cursor: 'pointer' }}
               >
-                <CurrencyIcon code={o.iconCode} chain={o.badge} />
+                <CurrencyIcon code={o.iconCode} chain={o.badge} size={32} />
                 <div style={{ fontWeight: 600 }}>{o.label}</div>
               </button>
             ))}
