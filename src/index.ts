@@ -10,7 +10,6 @@ export * from './types'
 // UI Components exports
 export { App as URampApp } from './ui/App'
 export { ConvertPage } from './ui/pages/ConvertPage'
-export { SwapPage } from './ui/pages/SwapPage'
 export { ActivityPage } from './ui/pages/ActivityPage'
 export { RoutingPage } from './ui/pages/RoutingPage'
 export { OnRampPage } from './ui/pages/OnRampPage'

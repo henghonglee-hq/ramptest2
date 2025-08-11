@@ -1,7 +1,6 @@
 import React from 'react'
 import { Navigation } from './components/Navigation'
 import { ConvertPage } from './pages/ConvertPage'
-import { SwapPage } from './pages/SwapPage'
 import { ActivityPage } from './pages/ActivityPage'
 import { RoutingPage } from './pages/RoutingPage'
 import { Logo } from './components/Logo'

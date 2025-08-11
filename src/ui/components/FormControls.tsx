@@ -38,7 +38,7 @@ export function Button({ children, ...props }: React.ButtonHTMLAttributes<HTMLBu
     <button
       {...props}
       className="btn"
-      style={{ padding: '10px 14px' }}
+      style={{ padding: '5px 7px' }}
     >
       {children}
     </button>

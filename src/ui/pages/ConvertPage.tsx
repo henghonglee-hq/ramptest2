@@ -16,6 +16,7 @@ export function ConvertPage(): JSX.Element {
   const [result, setResult] = React.useState<string | null>(null)
   const [showKyc, setShowKyc] = React.useState(false)
   const [showDest, setShowDest] = React.useState(false)
+  const [flipRotated, setFlipRotated] = React.useState(false)
 
   // KYC and destination account state (shown when destination is fiat)
   const [kyc, setKyc] = React.useState({
@@ -68,17 +69,53 @@ export function ConvertPage(): JSX.Element {
     }
   }
 
+  function handleFlip(): void {
+    setQuote(null)
+    setResult(null)
+    const nextFrom = toCurrency
+    const nextTo = fromCurrency
+    setFromCurrency(nextFrom)
+    setToCurrency(nextTo)
+    setFlipRotated(r => !r)
+  }
+
   return (
     <form onSubmit={handleSubmit} style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 16 }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 16 }}>
         <Field label="From">
           <CurrencySelect value={fromCurrency} onChange={setFromCurrency} />
         </Field>
-        <Field label="Amount">
-          <Input type="number" min="0" step="0.0001" value={amount} onChange={e => setAmount(e.target.value)} />
-        </Field>
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: -8, marginBottom: -8 }}>
+          <button
+            type="button"
+            className="btn"
+            onClick={handleFlip}
+            disabled={loading}
+            aria-label="Flip currencies"
+            aria-pressed={flipRotated}
+            style={{
+              width: 48,
+              height: 48,
+              borderRadius: '50%',
+              padding: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 22,
+              lineHeight: 1,
+              transform: `rotate(${90 + (flipRotated ? 180 : 0)}deg)`,
+              transition: 'transform 220ms ease',
+              boxShadow: 'none'
+            }}
+          >
+            ⇄
+          </button>
+        </div>
         <Field label="To">
           <CurrencySelect value={toCurrency} onChange={setToCurrency} />
+        </Field>
+        <Field label="Amount">
+          <Input type="number" min="0" step="0.0001" value={amount} onChange={e => setAmount(e.target.value)} />
         </Field>
         {(() => {
           const fromCode = typeof fromCurrency === 'string' ? fromCurrency : fromCurrency.code

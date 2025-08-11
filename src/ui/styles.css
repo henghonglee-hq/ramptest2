@@ -101,6 +101,8 @@ body {
   border-radius: 16px;
   padding: 1px;
   background: linear-gradient(135deg, rgba(99,102,241,0.35), rgba(34,211,238,0.35));
+  /* Standard property for compatibility */
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
@@ -167,7 +169,7 @@ body {
 .btn {
   border: 0;
   border-radius: 10px;
-  padding: 10px 14px;
+  padding: 5px 7px;
   font-weight: 700;
   color: white;
   background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
