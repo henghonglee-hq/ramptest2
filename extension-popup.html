@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URamp Extension</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <link rel="stylesheet" href="./dist/style.css">
+    <style>
+        body {
+            width: 360px;
+            height: 600px;
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+        }
+        #root {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script src="./dist/uramp.umd.js"></script>
+    <script>
+        const { mountURamp } = window.URampSDK;
+        mountURamp('#root', { isExtensionPopup: true });
+    </script>
+</body>
+</html>

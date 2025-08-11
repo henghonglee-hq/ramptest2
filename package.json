@@ -1,0 +1,66 @@
+{
+  "name": "uramp-sdk",
+  "version": "1.0.0",
+  "description": "A React SDK for crypto wallet ramp and swap functionality",
+  "type": "module",
+  "main": "./dist/uramp.cjs.js",
+  "module": "./dist/uramp.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/uramp.es.js",
+      "require": "./dist/uramp.cjs.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./styles": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite --config vite.dev.config.ts",
+    "typecheck": "tsc --project tsconfig.dev.json",
+    "build": "tsc && vite build",
+    "build:site": "vite build --config vite.site.config.ts",
+    "build:types": "tsc --emitDeclarationOnly --outDir dist",
+    "preview": "vite preview --port 5173",
+    "watch:types": "nodemon --config nodemon.json --exec \"npm run typecheck\"",
+    "dev:nodemon": "nodemon --config nodemon.json --exec \"vite --port 5174 --config vite.dev.config.ts\"",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "crypto",
+    "wallet",
+    "ramp",
+    "swap",
+    "react",
+    "sdk",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "dependencies": {
+    "cryptocurrency-icons": "0.18.1"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.7",
+    "@types/react-dom": "18.3.2",
+    "@vitejs/plugin-react": "4.3.1",
+    "nodemon": "3.1.4",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "typescript": "5.5.4",
+    "vite": "5.4.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

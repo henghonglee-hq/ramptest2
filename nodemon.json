@@ -1,0 +1,6 @@
+{
+  "watch": ["src", "tsconfig.json", "vite.config.ts", "index.html"],
+  "ext": "ts,tsx,js,jsx,json,html,css",
+  "ignore": ["dist", "node_modules"],
+  "delay": "150ms"
+}
