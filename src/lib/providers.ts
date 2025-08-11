@@ -1,3 +1,6 @@
+/**
+ * Public provider definitions and persistence helpers for routing configuration.
+ */
 export type ProviderCategory = 'ramp' | 'swap'
 
 export interface ProviderDef {
@@ -25,6 +28,9 @@ export const ROUTING_STORAGE_KEY = 'uramp.routing.providers'
 
 export type ProviderToggleState = Record<string, boolean>
 
+/**
+ * Read persisted provider toggle state or return an all-enabled default.
+ */
 export function getSavedProviderToggles(): ProviderToggleState {
   try {
     const raw = localStorage.getItem(ROUTING_STORAGE_KEY)

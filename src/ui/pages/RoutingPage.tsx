@@ -1,50 +1,19 @@
 import React from 'react'
 import { Switch } from '@/ui/components/Switch'
 import { InfoTooltip } from '@/ui/components/InfoTooltip'
-
-type Provider = {
-  id: string
-  name: string
-  category: 'ramp' | 'swap'
-  info?: string
-}
-
-const PROVIDERS: Provider[] = [
-  // Monerium – Direct + Multi-Party; SEPA CT, SCT Inst
-  { id: 'monerium', name: 'Monerium', category: 'ramp', info: 'Direct + Multi-Party' },
-
-  // PDAX – Multi-Party; InstaPay, PESONet + remittance
-  { id: 'pdax', name: 'PDAX', category: 'ramp', info: 'Multi-Party' },
-
-  // Coins.ph – Direct + Multi-Party; InstaPay, PESONet, Coins Wallet
-  { id: 'coinsph', name: 'Coins.ph', category: 'ramp', info: 'Direct + Multi-Party' },
-
-  // BRLA – PIX
-  { id: 'brla', name: 'BRLA', category: 'ramp' },
-
-  // StraitsX – Multi-Party; FAST/PayNow, Virtual Accounts; also USD(IDR) over SWIFT
-  { id: 'straitsx', name: 'StraitsX', category: 'ramp', info: 'Multi-Party' },
-
-  // Noah – Multi-Party; SEPA, ACH, Fedwire, RTP/FedNow, PIX, InstaPay/PESONet, UPI/NEFT/IMPS
-  { id: 'noah', name: 'Noah', category: 'ramp', info: 'Multi-Party' },
-
-  // Revolut Ramp – Onramp only
-  { id: 'revolut', name: 'Revolut Ramp', category: 'ramp', info: 'Onramp only' },
-
-  // Swap providers (limited to LI.FI, CowSwap, 1inch)
-  { id: 'lifi', name: 'LI.FI', category: 'swap' },
-  { id: 'cowswap', name: 'CowSwap', category: 'swap' },
-  { id: '1inch', name: '1inch', category: 'swap' },
-]
+import type { ProviderDef } from '@/lib/providers'
+import { PROVIDERS, ROUTING_STORAGE_KEY } from '@/lib/providers'
 
 type ProviderState = Record<string, boolean>
 
-const STORAGE_KEY = 'uramp.routing.providers'
-
+/**
+ * Provider routing configuration page. Allows toggling which ramp/swap providers are active.
+ * Choices are persisted in `localStorage` under `ROUTING_STORAGE_KEY`.
+ */
 export function RoutingPage(): JSX.Element {
   const [state, setState] = React.useState<ProviderState>(() => {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY)
+      const raw = localStorage.getItem(ROUTING_STORAGE_KEY)
       if (raw) return JSON.parse(raw)
     } catch {}
     // default: all enabled
@@ -54,7 +23,7 @@ export function RoutingPage(): JSX.Element {
   })
 
   React.useEffect(() => {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)) } catch {}
+    try { localStorage.setItem(ROUTING_STORAGE_KEY, JSON.stringify(state)) } catch {}
   }, [state])
 
   function toggle(id: string): void {
@@ -70,7 +39,7 @@ export function RoutingPage(): JSX.Element {
     setExpanded(e => ({ ...e, [id]: !e[id] }))
   }
 
-  const sections: Array<{ title: string; items: Provider[] }> = [
+  const sections: Array<{ title: string; items: ProviderDef[] }> = [
     { title: 'Ramp', items: PROVIDERS.filter(p => p.category === 'ramp') },
     { title: 'Swap', items: PROVIDERS.filter(p => p.category === 'swap') },
   ]

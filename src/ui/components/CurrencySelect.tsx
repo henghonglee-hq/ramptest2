@@ -1,8 +1,12 @@
 import React from 'react'
 import { CurrencyIcon } from '@/ui/components/Icons'
 import type { AnyCurrency, CurrencySelection, Chain } from '@/types'
-import { FIAT_CURRENCIES, CRYPTO_CURRENCIES, SUPPORTED_TOKEN_CHAINS, isFiat, isCrypto, shortChainCode } from '@/types'
+import { FIAT_CURRENCIES, CRYPTO_CURRENCIES, SUPPORTED_TOKEN_CHAINS, shortChainCode } from '@/types'
 
+/**
+ * Currency selection dropdown that supports both fiat and crypto (with optional chain badge for tokens).
+ * Public component kept at top; private helpers are defined below.
+ */
 interface CurrencySelectProps {
   value: AnyCurrency | CurrencySelection
   onChange: (value: AnyCurrency | CurrencySelection) => void

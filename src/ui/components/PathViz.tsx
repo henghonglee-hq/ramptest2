@@ -16,12 +16,12 @@ export function PathViz({ steps }: { steps: PathStep[] }): JSX.Element | null {
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
         {steps.map((step, idx) => (
           <React.Fragment key={idx}>
-            <StepPill
+            <_StepPill
               title={step.kind === 'ramp' ? 'Ramp' : 'Swap'}
               provider={step.providerName}
               fee={`${step.feePercent.toFixed(2)}% + ${step.fixedFeeAmount.toFixed(2)} ${step.fixedFeeCurrency}`}
             />
-            {idx < steps.length - 1 && <Arrow />}
+            {idx < steps.length - 1 && <_Arrow />}
           </React.Fragment>
         ))}
       </div>
@@ -29,7 +29,7 @@ export function PathViz({ steps }: { steps: PathStep[] }): JSX.Element | null {
   )
 }
 
-function StepPill({ title, provider, fee }: { title: string; provider: string; fee: string }): JSX.Element {
+function _StepPill({ title, provider, fee }: { title: string; provider: string; fee: string }): JSX.Element {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: 999 }}>
       <span style={{ fontWeight: 900, color: '#0f172a' }}>{title}</span>
@@ -41,7 +41,7 @@ function StepPill({ title, provider, fee }: { title: string; provider: string; f
   )
 }
 
-function Arrow(): JSX.Element {
+function _Arrow(): JSX.Element {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden>
       <path d="M4 12h14m0 0l-4-4m4 4l-4 4" stroke="#94a3b8" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />

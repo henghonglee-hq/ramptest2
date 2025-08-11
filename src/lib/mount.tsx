@@ -8,6 +8,10 @@ export type MountOptions = {
 }
 
 // Public API on top
+/**
+ * Mount the uRamp app into a DOM container.
+ * Returns an unmount handle for cleanup.
+ */
 export function mountURamp(
   container: string | Element,
   options?: MountOptions

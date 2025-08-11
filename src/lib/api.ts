@@ -2,6 +2,9 @@ import type { Quote, ActivityItem, CryptoCurrency, FiatCurrency } from '@/types'
 
 // Public functions up top
 
+/**
+ * Return a simulated onramp quote for converting fiat to crypto.
+ */
 export async function getOnRampQuote(params: {
   fiatCurrency: FiatCurrency
   fiatAmount: string
@@ -14,6 +17,9 @@ export async function getOnRampQuote(params: {
   })
 }
 
+/**
+ * Return a simulated offramp quote for converting crypto to fiat.
+ */
 export async function getOffRampQuote(params: {
   cryptoCurrency: CryptoCurrency
   cryptoAmount: string
@@ -26,6 +32,9 @@ export async function getOffRampQuote(params: {
   })
 }
 
+/**
+ * Return a simulated swap quote for converting between crypto assets.
+ */
 export async function getSwapQuote(params: {
   fromCurrency: CryptoCurrency
   toCurrency: CryptoCurrency
@@ -38,6 +47,9 @@ export async function getSwapQuote(params: {
   })
 }
 
+/**
+ * Simulate submitting an onramp order; returns a pending id.
+ */
 export async function submitOnRamp(_: {
   fiatCurrency: FiatCurrency
   fiatAmount: string
@@ -48,6 +60,9 @@ export async function submitOnRamp(_: {
   return { id: crypto.randomUUID(), status: 'pending' }
 }
 
+/**
+ * Simulate submitting an offramp order; returns a pending id.
+ */
 export async function submitOffRamp(_: {
   cryptoCurrency: CryptoCurrency
   cryptoAmount: string
@@ -58,6 +73,9 @@ export async function submitOffRamp(_: {
   return { id: crypto.randomUUID(), status: 'pending' }
 }
 
+/**
+ * Simulate submitting a crypto swap; returns a pending id.
+ */
 export async function submitSwap(_: {
   fromCurrency: CryptoCurrency
   toCurrency: CryptoCurrency
@@ -67,6 +85,9 @@ export async function submitSwap(_: {
   return { id: crypto.randomUUID(), status: 'pending' }
 }
 
+/**
+ * Return a recent activity list (simulated).
+ */
 export async function listActivity(): Promise<ActivityItem[]> {
   await _delay(400)
   return [

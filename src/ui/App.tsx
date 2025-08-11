@@ -6,6 +6,9 @@ import { ActivityPage } from './pages/ActivityPage'
 import { RoutingPage } from './pages/RoutingPage'
 import { Logo } from './components/Logo'
 
+/**
+ * Root uRamp application shell.
+ */
 interface AppProps {
   isExtensionPopup?: boolean
   theme?: 'light' | 'dark'

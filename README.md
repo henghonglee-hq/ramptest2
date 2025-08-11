@@ -71,7 +71,7 @@ export default App;
 ### Individual Components
 
 ```tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { ConvertPage, SwapPage, ActivityPage } from 'uramp-sdk';
 import 'uramp-sdk/styles';
 
@@ -92,6 +92,21 @@ function MyWallet() {
     </div>
   );
 }
+```
+
+### mountURamp API
+
+The SDK exposes a one-line mount helper for non-React or script-tag integrations.
+
+```ts
+type MountOptions = {
+  isExtensionPopup?: boolean; // adjust layout density for extension popups
+  theme?: 'light' | 'dark';   // UI theme (default: 'dark')
+}
+
+const handle = mountURamp('#uramp-root', { isExtensionPopup: true, theme: 'light' })
+// ... later, to clean up
+handle.unmount()
 ```
 
 ## Chrome Extension Integration
@@ -236,7 +251,7 @@ import { ActivityPage } from 'uramp-sdk';
 ```
 
 #### `<RoutingPage />`
-Multi-hop swap path visualization and optimization.
+Routing configuration and path visualization.
 
 ```tsx
 import { RoutingPage } from 'uramp-sdk';
